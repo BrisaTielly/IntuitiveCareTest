@@ -49,3 +49,11 @@ def download_and_zip_pdfs(annex_links, zip_path, download_folder):
 base_directory = os.path.dirname(os.path.realpath(__file__))
 destination_folder = os.path.join(base_directory, "anexos")
 zip_file_path = os.path.join(destination_folder, "anexos.zip")
+
+# Requisição da página HTML
+url = "https://www.gov.br/ans/pt-br/acesso-a-informacao/participacao-da-sociedade/atualizacao-do-rol-de-procedimentos"
+base_url = "https://www.gov.br"
+response = requests.get(url)
+response.raise_for_status()
+soup = BeautifulSoup(response.text, "html.parser")
+
