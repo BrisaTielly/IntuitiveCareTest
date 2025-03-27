@@ -57,3 +57,9 @@ response = requests.get(url)
 response.raise_for_status()
 soup = BeautifulSoup(response.text, "html.parser")
 
+# Extrai os links para os anexos
+annex_links = extract_annex_links(soup, base_url)
+
+# Baixa e compacta os PDFs
+ensure_directory(destination_folder)  # Garante que a pasta de anexos exista
+download_and_zip_pdfs(annex_links, zip_file_path, destination_folder)
