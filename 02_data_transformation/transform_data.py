@@ -44,3 +44,19 @@ def create_zip(csv_path, zip_path):
         print("Criando arquivo ZIP...")
         with zipfile.ZipFile(zip_path, 'w') as zipf:
             zipf.write(csv_path, os.path.basename(csv_path))
+
+
+# Definição de caminhos
+pdf_path = 'Anexo_I_Rol_2021RN_465.2021_RN627L.2024.pdf'
+csv_path = 'Teste_brisa.csv'
+zip_path = 'Teste_brisa.zip'
+
+# Execução das funções
+df = extract_pdf_data(pdf_path)
+
+if not df.empty:
+    df = clean_dataframe(df)
+    save_to_csv(df, csv_path)
+    create_zip(csv_path, zip_path)
+    
+    print("Processamento concluído.")
