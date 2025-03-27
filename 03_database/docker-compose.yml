@@ -1,0 +1,19 @@
+#Caso queira utilizar o docker para o banco de dados, utilize esse arquivo e siga as instruções do README.md
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: intuitive_care_postgres
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=intuitive_care
+    ports:
+      - "5432:5432"
+    volumes:
+        #Substitua pelo caminho correto no seu sistema onde os relatórios.csv estão localizados
+      - /home/brisa/IdeaProjects/IntuitiveCareTest/03_database/data:/data 
+
+volumes:
+  postgres_data:
