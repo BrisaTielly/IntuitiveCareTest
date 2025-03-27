@@ -45,3 +45,7 @@ def download_and_zip_pdfs(annex_links, zip_path, download_folder):
 
     print(f"{len(annex_links)} anexos baixados e compactados em '{zip_path}'.")
 
+# Caminho para o diretório 'web_scraper'
+base_directory = os.path.dirname(os.path.realpath(__file__))
+destination_folder = os.path.join(base_directory, "anexos")
+zip_file_path = os.path.join(destination_folder, "anexos.zip")
