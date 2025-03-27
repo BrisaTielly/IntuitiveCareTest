@@ -15,3 +15,19 @@ def extract_pdf_data(pdf_path):
                 tables.append(df)
 
         return pd.concat(tables, ignore_index=True) if tables else pd.DataFrame()
+
+# Remove espaços em branco, renomeia colunas e padroniza valores
+def clean_dataframe(df):
+    if df.empty:
+        return df
+
+    print("Iniciando limpeza do DataFrame...")
+    df = df.copy()
+
+    for col in df.select_dtypes(include='object'):
+        df[col] = df[col].str.strip()
+
+    column_map = {'OD': 'Seguro Odontológico', 'AMB': 'Seguro Ambulatorial'}
+    df.rename(columns=column_map, inplace=True)
+
+    return df.replace(column_map)
