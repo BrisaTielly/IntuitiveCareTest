@@ -31,3 +31,10 @@ def clean_dataframe(df):
     df.rename(columns=column_map, inplace=True)
 
     return df.replace(column_map)
+
+# Usa codificação utf-8-sig para preservar caracteres especiais
+def save_to_csv(df, path):
+    if not df.empty:
+        print("Salvando dados no CSV...")
+        df.to_csv(path, index=False, encoding='utf-8-sig')
+
