@@ -38,3 +38,9 @@ def save_to_csv(df, path):
         print("Salvando dados no CSV...")
         df.to_csv(path, index=False, encoding='utf-8-sig')
 
+# Compacta o arquivo CSV gerado
+def create_zip(csv_path, zip_path):
+    if os.path.exists(csv_path):
+        print("Criando arquivo ZIP...")
+        with zipfile.ZipFile(zip_path, 'w') as zipf:
+            zipf.write(csv_path, os.path.basename(csv_path))
