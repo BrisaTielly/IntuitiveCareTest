@@ -21,3 +21,27 @@ def extract_annex_links(soup, base_url):
                     href = base_url + href
                 annex_links.append(href)
     return annex_links
+
+
+# Função para baixar os PDFs e compactá-los
+def download_and_zip_pdfs(annex_links, zip_path, download_folder):
+    ensure_directory(download_folder)  # Cria o diretório para armazenar os PDFs
+
+    with ZipFile(zip_path, "w") as zipf:
+        for pdf_url in annex_links:
+            file_name = os.path.basename(urlparse(pdf_url).path)
+            print(f"Baixando: {file_name}")
+            response = requests.get(pdf_url)
+            response.raise_for_status()
+
+            # Salva o PDF temporariamente antes de adicionar ao ZIP
+            file_path = os.path.join(download_folder, file_name)
+            with open(file_path, "wb") as file:
+                file.write(response.content)
+            
+            # Adiciona ao arquivo ZIP
+            zipf.write(file_path, file_name)
+            os.remove(file_path)  # Remove o PDF temporário após compactar
+
+    print(f"{len(annex_links)} anexos baixados e compactados em '{zip_path}'.")
+
