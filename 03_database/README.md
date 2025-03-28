@@ -30,9 +30,9 @@ Para importar os arquivos CSV automaticamente, vá até cd 03_database e execute
 ```bash
 for file in ./data/*.csv; do
     if [[ $(basename "$file") == "Relatorio_cadop.csv" ]]; then
-        docker exec -i postgres_container psql -U admin -d intuitive -c "\copy relatorio_cadop FROM '/data/$(basename "$file")' DELIMITER ';' CSV HEADER ENCODING 'latin1';"
+        docker exec -i intuitive_care_postgres psql -U admin -d intuitive_care -c "\copy relatorio_cadop FROM '/data/$(basename "$file")' DELIMITER ';' CSV HEADER ENCODING 'UTF8';"
     else
-        docker exec -i postgres_container psql -U admin -d intuitive -c "\copy demonstracoes_contabeis FROM '/data/$(basename "$file")' DELIMITER ';' CSV HEADER ENCODING 'latin1';"
+        docker exec -i intuitive_care_postgres psql -U admin -d intuitive_care -c "\copy demonstracoes_contabeis FROM '/data/$(basename "$file")' DELIMITER ';' CSV HEADER ENCODING 'UTF8';"
     fi
 done
 ```

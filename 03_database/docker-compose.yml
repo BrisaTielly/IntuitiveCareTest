@@ -6,6 +6,7 @@ services:
     image: postgres:latest
     container_name: intuitive_care_postgres
     environment:
+        #Dados expostos para o fim de facilitar para quem for testar o código, normalmente estariam em um .env no gitignore
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=intuitive_care
