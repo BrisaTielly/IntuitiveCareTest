@@ -71,6 +71,8 @@
           return;
         }
         try {
+                  //Se for rodar localmente utilize o endereço em que o backend está rodando
+                  // const response = await axios.get("http://localhost:8000/search", {
           const response = await axios.get("http://3.143.169.238:8000/search", {
             params: {
               query: this.query, // Passar o termo da busca
