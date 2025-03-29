@@ -71,7 +71,7 @@
           return;
         }
         try {
-          const response = await axios.get("http://localhost:8000/search", {
+          const response = await axios.get("http://3.143.169.238:8000/search", {
             params: {
               query: this.query, // Passar o termo da busca
               maxResults: this.maxResults, // Passar o número máximo de resultados
