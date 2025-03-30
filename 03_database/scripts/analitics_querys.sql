@@ -1,4 +1,4 @@
---ULTIMO TRIMESTRE-----------------------
+--MAIORES DESPESAS NO ULTIMO TRIMESTRE-----------------------
 select
 	rc.registro_ans,
     rc.razao_social,
@@ -18,7 +18,7 @@ ORDER BY despesas DESC
 LIMIT 10;
 
 
---ULTIMO ANO----------------------
+--MIORES DESPESAS NO ULTIMO ANO----------------------
 SELECT
     rc.registro_ans,
     rc.razao_social,

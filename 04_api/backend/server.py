@@ -25,8 +25,8 @@ app.add_middleware(
 )
  
 #Caso queira rodar no seu servidor da aws, descomente a linha abaixo e comente a linha acima e configure a url no .env 
-# DATABASE_URL = os.getenv("DATABASE_URL")
-DATABASE_URL = "postgresql://admin:admin@localhost/intuitive_care" #Vai rodar localmente
+DATABASE_URL = os.getenv("DATABASE_URL")
+#DATABASE_URL = "postgresql://admin:admin@localhost/intuitive_care" #Vai rodar localmente
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)

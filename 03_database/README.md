@@ -1,32 +1,47 @@
-# Importando Dados para o PostgreSQL no Docker
+# 03 database
 
-Este guia ensina como configurar um banco de dados PostgreSQL em um contêiner Docker e carregar automaticamente os arquivos CSV para as tabelas `demonstracoes_contabeis` e `relatorio_cadop`.
+Este diretório contém scripts SQL e arquivos CSV para configurar e carregar dados em um banco de dados PostgreSQL, com o objetivo de realizar a análise de despesas de operadoras de plano de saúde.
+
+## Estrutura do Projeto
+
+- **data/**: Contém os arquivos CSV necessários para o carregamento dos dados no banco de dados.
+- **scripts/**: Contém os scripts SQL para criar as tabelas no banco de dados e carregar os dados dos arquivos CSV.
+- **docker-compose.yml**: Arquivo Docker Compose para criar e rodar o PostgreSQL em um contêiner Docker caso você queira.
 
 ---
 
-## **1. Inicializando o Banco de Dados**
-Para iniciar o PostgreSQL no Docker, execute:
+## Como Usar
+
+### 1. Iniciar o Banco de Dados
+
+Se você deseja testar o banco de dados no Docker, execute o seguinte comando no diretório desse projeto (03_database) do para iniciar o contêiner PostgreSQL:
+
 ```bash
 docker-compose up -d
 ```
-Isso criará e iniciará o contêiner `intuitive_care_postgres.`.
 
----
+Isso criará e iniciará o contêiner `intuitive_care_postgres`.
 
-## **3. Criando as Tabelas**
-Conecte-se ao PostgreSQL e crie as tabelas necessárias:
+### 2. Criar as Tabelas no Banco de Dados
+
+Conecte-se ao contêiner PostgreSQL:
+
 ```bash
 docker exec -it intuitive_care_postgres psql -U admin -d intuitive_care
 ```
-No terminal do PostgreSQL, execute:
+
+No terminal do PostgreSQL, execute o script para criar as tabelas:
+
 ```sql
-O Script presente em 03_database/scripts/create_tables.sql
+\i /scripts/create_tables.sql
 ```
 
----
+Isso criará as tabelas necessárias para armazenar os dados dos arquivos CSV.
 
-## **4. Carregando os Dados**
-Para importar os arquivos CSV automaticamente, vá até cd 03_database e execute:
+### 3. Carregar os Dados
+
+Para carregar os dados dos arquivos CSV no banco de dados, execute o seguinte comando:
+
 ```bash
 for file in ./data/*.csv; do
     if [[ $(basename "$file") == "Relatorio_cadop.csv" ]]; then
@@ -37,8 +52,25 @@ for file in ./data/*.csv; do
 done
 ```
 
-Este comando percorre todos os arquivos CSV dentro do diretório montado no contêiner (`/data`):
-- Se o arquivo for `Relatorio_cadop.csv`, ele é carregado na tabela `relatorio_cadop`.
-- Caso contrário, ele é carregado na tabela `demonstracoes_contabeis`.
+Esse comando percorre todos os arquivos CSV dentro da pasta `data/` e importa os dados nas tabelas correspondentes.
 
 ---
+
+
+## Conclusão
+
+Esse repositório fornece todas as etapas necessárias para configurar um banco de dados PostgreSQL e realizar análises sobre as despesas das operadoras de planos de saúde, utilizando dados extraídos de arquivos CSV da ANS.
+
+---
+
+## Arquivos
+
+- **scripts/create_tables.sql**: Cria as tabelas no banco de dados.
+- **scripts/load.sql**: Carrega os dados dos arquivos CSV para as tabelas no banco de dados.
+- **scripts/analytics_querys.sql**: Contém as consultas analíticas para as maiores despesas.
+- **docker-compose.yml**: Arquivo para iniciar o banco de dados PostgreSQL em um contêiner Docker.
+- **data/**: Pasta contendo os arquivos CSV com os dados necessários.
+
+```
+
+Esse README contém uma explicação clara e objetiva sobre como preparar e utilizar o repositório. Deixei as instruções simples e diretas, já que o foco é mostrar como usar o projeto. Se precisar de mais detalhes ou ajustes, só avisar!

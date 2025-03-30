@@ -1,0 +1,42 @@
+{
+	"info": {
+		"_postman_id": "8897e0ff-8659-44e0-87f8-39822372392e",
+		"name": "Coleção de testes da API de busca de operadoras",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41263988"
+	},
+	"item": [
+		{
+			"name": "Buscar Operadoras",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://3.143.169.238:8000/search?query=unimed&maxResults=50",
+					"protocol": "http",
+					"host": [
+						"3",
+						"143",
+						"169",
+						"238"
+					],
+					"port": "8000",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "unimed"
+						},
+						{
+							"key": "maxResults",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
