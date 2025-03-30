@@ -70,7 +70,3 @@ Esse repositório fornece todas as etapas necessárias para configurar um banco 
 - **scripts/analytics_querys.sql**: Contém as consultas analíticas para as maiores despesas.
 - **docker-compose.yml**: Arquivo para iniciar o banco de dados PostgreSQL em um contêiner Docker.
 - **data/**: Pasta contendo os arquivos CSV com os dados necessários.
-
-```
-
-Esse README contém uma explicação clara e objetiva sobre como preparar e utilizar o repositório. Deixei as instruções simples e diretas, já que o foco é mostrar como usar o projeto. Se precisar de mais detalhes ou ajustes, só avisar!
