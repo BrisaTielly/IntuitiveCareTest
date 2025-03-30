@@ -1,7 +1,7 @@
 # Intuitive Care - Teste Técnico
 
 ## 📋 Descrição Geral
-Este repositório contém a solução completa para o teste técnico na Intuitive Care, abordando um pipeline de dados completo:
+Este repositório contém a solução completa para o teste técnico na Intuitive Care.
 
 * **Web Scraping** para coleta automatizada de dados
 * **Transformação de Dados** para extração e limpeza de informações de PDFs
@@ -16,6 +16,9 @@ A aplicação final pode ser acessada diretamente em:
 [**Clique aqui para acessar a aplicação**](http://intuitivecarefront.s3-website.us-east-2.amazonaws.com/)
 
 > **Nota:** Não é necessário executar localmente. Acesse diretamente pelo link acima.
+
+![API Image](https://github.com/BrisaTielly/IntuitiveCareTest/blob/main/images/API.png?raw=true)
+
 
 ## 📂 Estrutura do Projeto
 
@@ -43,6 +46,8 @@ A aplicação final pode ser acessada diretamente em:
     ├── frontend/               # Interface Vue.js
     ├── postman_collection/     # Coleção para testes da API
     ├── readme/                 # Documentação adicional
+images/
+    ├── API.png                # Imagem para usar no README.md
 ```
 
 ## 🛠️ Tecnologias Utilizadas
@@ -119,13 +124,23 @@ python transform_data.py
 
 ### 3. Banco de Dados
 ```bash
+# Navegue até o diretório do banco de dados
 cd 03_database
-docker-compose up -d
-docker exec -it intuitive_care_postgres psql -U admin -d intuitive_care -c "\i /scripts/create_tables.sql"
-docker exec -it intuitive_care_postgres psql -U admin -d intuitive_care -c "\i /scripts/load.sql"
-docker exec -it intuitive_care_postgres psql -U admin -d intuitive_care -c "\i /scripts/analytics_querys.sql"
-```
 
+# Inicie o contêiner PostgreSQL
+docker-compose up -d
+
+# Conecte-se ao PostgreSQL e crie as tabelas de acordo com o create_tables.sql
+
+# Carregue os dados dos arquivos CSV
+for file in ./data/*.csv; do
+    if [[ $(basename "$file") == "Relatorio_cadop.csv" ]]; then
+        docker exec -i intuitive_care_postgres psql -U admin -d intuitive_care -c "\copy relatorio_cadop FROM '/data/$(basename "$file")' DELIMITER ';' CSV HEADER ENCODING 'UTF8';"
+    else
+        docker exec -i intuitive_care_postgres psql -U admin -d intuitive_care -c "\copy demonstracoes_contabeis FROM '/data/$(basename "$file")' DELIMITER ';' CSV HEADER ENCODING 'UTF8';"
+    fi
+done
+```
 ### 4. API e Frontend
 
 #### Backend:
@@ -133,9 +148,8 @@ docker exec -it intuitive_care_postgres psql -U admin -d intuitive_care -c "\i /
 cd 04_api/backend
 pip install -r requirements.txt
 uvicorn main:app --reload
-```
 O backend estará disponível em `http://localhost:8000`
-
+```
 #### Frontend:
 ```bash
 cd 04_api/frontend
