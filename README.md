@@ -142,6 +142,7 @@ for file in ./data/*.csv; do
 done
 ```
 ### 4. API e Frontend
+NÃO ESQUEÇA DE TROCAR AS URLS, DO BACKEND PARA O SEU BANCO DE DADOS E DO FRONTEND PARA O LOCALHOST DO BACKEND!!!!
 
 #### Backend:
 ```bash
