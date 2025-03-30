@@ -10,11 +10,14 @@ Este projeto tem como objetivo fornecer uma interface de busca interativa para p
 - **Banco de Dados**: PostgreSQL
 - **Deploy**: AWS S3, AWS RDS, AWS EC2 e CloudFront
 
-## Link para a aplicação completa:
+## 🌐 Acesse a aplicação online:
 
-A aplicação completa está [aqui](http://intuitivecarefront.s3-website.us-east-2.amazonaws.com/).
+A aplicação completa está disponível no seguinte link:  
+[**Clique aqui para acessar a aplicação**](http://intuitivecarefront.s3-website.us-east-2.amazonaws.com/).
 
-Caso queria rodar a aplicação localmente, as instruções estarão mais abaixo.
+> **Não é necessário rodar localmente.** Acesse a aplicação diretamente através do link acima.
+
+Caso queira rodar a aplicação localmente, as instruções estarão mais abaixo.
 
 ## Funcionalidades
 
@@ -136,5 +139,3 @@ Você pode importar a coleção do Postman para testar os endpoints da API de fo
 1. Abra o Postman.
 2. Importe a coleção do arquivo `postman_collection.json`.
 3. Realize as requisições para testar os endpoints.
-
-
