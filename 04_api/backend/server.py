@@ -25,8 +25,8 @@ app.add_middleware(
 )
  
 #Caso queira rodar no seu servidor da aws, descomente a linha abaixo e comente a linha acima e configure a url no .env 
-DATABASE_URL = "postgresql://admin:admin@localhost/intuitive_care"
 # DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = "postgresql://admin:admin@localhost/intuitive_care" #Vai rodar localmente
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
@@ -38,23 +38,24 @@ def get_db():
     finally:
         db.close()
 
+import re
+
 @app.get("/search")
 def search_operadoras(
     query: str = Query(..., description="Termo para busca"),
     maxResults: int = Query(10, le=50, ge=1, description="Número máximo de resultados"),
     db: Session = Depends(get_db)
 ):
+    # A consulta utilizando ILIKE para buscar insensivelmente (maiúsculas e minúsculas)
     sql = text("""
-        SELECT *, ts_rank(
-            to_tsvector('portuguese', razao_social || ' ' || nome_fantasia),
-            plainto_tsquery('portuguese', :q)
-        ) AS rank
+        SELECT *
         FROM relatorio_cadop
-        WHERE to_tsvector('portuguese', razao_social || ' ' || nome_fantasia) @@ plainto_tsquery('portuguese', :q)
-        ORDER BY rank DESC
+        WHERE (razao_social ILIKE :q OR nome_fantasia ILIKE :q)
         LIMIT :maxResults
     """)
-    result = db.execute(sql, {"q": query, "maxResults": maxResults})
+    
+    # Passando a consulta com wildcards '%' para o ILIKE
+    result = db.execute(sql, {"q": f"%{query}%", "maxResults": maxResults})
     registros = [dict(row._mapping) for row in result]
     
     # Retornar resposta com cabeçalhos CORS
